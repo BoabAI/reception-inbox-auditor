@@ -6,19 +6,40 @@ function required(name: string): string {
   return v;
 }
 
+// Lazy getters so each script only validates the env it actually uses.
 export const config = {
-  tenantId: required("M365_TENANT_ID"),
-  clientId: required("M365_CLIENT_ID"),
-  watchedMailbox: required("WATCHED_MAILBOX"),
+  get tenantId() {
+    return required("M365_TENANT_ID");
+  },
+  get clientId() {
+    return required("M365_CLIENT_ID");
+  },
+  get watchedMailbox() {
+    return required("WATCHED_MAILBOX");
+  },
   sp: {
-    hostname: required("SP_HOSTNAME"),
-    sitePath: required("SP_SITE_PATH"),
-    listName: required("SP_LIST_NAME"),
+    get hostname() {
+      return required("SP_HOSTNAME");
+    },
+    get sitePath() {
+      return required("SP_SITE_PATH");
+    },
+    get listName() {
+      return required("SP_LIST_NAME");
+    },
   },
   openai: {
-    endpoint: required("AZURE_OPENAI_ENDPOINT"),
-    apiKey: required("AZURE_OPENAI_API_KEY"),
-    deployment: required("AZURE_OPENAI_DEPLOYMENT"),
-    apiVersion: process.env.AZURE_OPENAI_API_VERSION ?? "2024-08-01-preview",
+    get endpoint() {
+      return required("AZURE_OPENAI_ENDPOINT");
+    },
+    get apiKey() {
+      return required("AZURE_OPENAI_API_KEY");
+    },
+    get deployment() {
+      return required("AZURE_OPENAI_DEPLOYMENT");
+    },
+    get apiVersion() {
+      return process.env.AZURE_OPENAI_API_VERSION ?? "2024-08-01-preview";
+    },
   },
 } as const;
