@@ -15,14 +15,14 @@ The pitch is **visibility, not automation** — Sandeep wants to know what got m
 
 ## 2. POC scope
 
-The POC runs entirely inside SMEC AI's own M365 tenant against a synthetic test inbox. No clinic data, no patient data. The POC is a working demo we show on May 13.
+The POC runs entirely inside SMEC AI's own M365 tenant against the test mailbox **`demonstration@smecai.au`**. No clinic data, no patient data. The POC is a working demo we show on May 13.
 
-Synthetic test data: ~20 fabricated emails covering referrals (HealthLink-style, GP letters with PDFs, plain-text referrals) and other (rebooking requests, billing, marketing, spam).
+Synthetic test data: ~20 fabricated emails sent to `demonstration@smecai.au`, covering referrals (HealthLink-style, GP letters with PDFs, plain-text referrals) and other (rebooking requests, billing, marketing, spam).
 
 ## 3. Architecture
 
 ```
-SMEC AI test inbox (M365)
+demonstration@smecai.au (M365 shared mailbox)
         │
         ▼
 Power Automate "Auto-log" flow
@@ -43,7 +43,7 @@ Single shared view — used by receptionist AND manager
 ```
 
 Four components, all M365/Azure-native:
-- Shared mailbox (existing in SMEC tenant)
+- Shared mailbox `demonstration@smecai.au` (in SMEC tenant)
 - Power Automate auto-log flow (the only flow)
 - Azure OpenAI deployment in Australia East (in SMEC subscription)
 - SharePoint list with versioning enabled, single view for both audiences
@@ -112,7 +112,7 @@ Receptionist always has the final say — she edits the `Type` cell directly in 
 
 What Sean walks in with:
 
-1. **Live demo** — SMEC AI test inbox; show:
+1. **Live demo** — `demonstration@smecai.au` test inbox; show:
    - An email arriving and auto-logging within ~30s
    - The single shared view (grouped by Status, sorted Received desc)
    - Grid-edit Status / Type / Notes inline as the receptionist would

@@ -25,7 +25,7 @@ Show Sandeep a working POC built in SMEC AI's test environment, get his read on 
 | Time | Item | Owner |
 |---|---|---|
 | 0:00 – 0:03 | Welcome + 60-second recap of the discovery call | Sean |
-| 0:03 – 0:15 | **Live demo** — SMEC AI test inbox: email arrives → auto-logs (idempotent on Internet Message ID) → AI classifies Referral/Other → single shared SharePoint list view (grouped by Status, sorted Received desc) used by both receptionist and manager → grid-edit Status + Notes inline | Sean |
+| 0:03 – 0:15 | **Live demo** — `demonstration@smecai.au` test inbox: email arrives → auto-logs (idempotent on Internet Message ID) → AI classifies Referral/Other → single shared SharePoint list view (grouped by Status, sorted Received desc) used by both receptionist and manager → grid-edit Status + Notes inline | Sean |
 | 0:15 – 0:25 | Sandeep's questions, reactions, must-haves | Sandeep |
 | 0:25 – 0:30 | Sense check on next steps | Both |
 
@@ -41,7 +41,7 @@ Show Sandeep a working POC built in SMEC AI's test environment, get his read on 
 
 ## Sean's Prep Checklist (Before the Meeting)
 
-- [ ] SMEC AI test inbox provisioned in dev tenant
+- [ ] `demonstration@smecai.au` shared mailbox provisioned and accessible
 - [ ] Auto-log Power Automate flow live (idempotent on Internet Message ID)
 - [ ] Azure OpenAI deployment running in SMEC AI's Australia East
 - [ ] SharePoint list populated with ~20 representative synthetic emails
@@ -67,7 +67,8 @@ Hi Sandeep,
 Following our discovery call on April 29, this 30-minute session will cover:
 
   1. Live demo of a working reception inbox auditor (built in SMEC AI's test
-     environment, running against synthetic emails — no clinic data involved)
+     environment against demonstration@smecai.au, running against synthetic
+     emails — no clinic data involved)
   2. Your reactions and questions
   3. A quick sense check on whether to take it further
 
