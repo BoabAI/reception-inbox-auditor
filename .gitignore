@@ -34,3 +34,9 @@ credentials.json
 # Test output
 test-output/
 coverage/
+
+# Local runtime state (cursor file etc.)
+.state/
+
+# Bun
+bun.lockb

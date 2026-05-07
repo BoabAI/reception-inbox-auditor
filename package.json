@@ -1,0 +1,27 @@
+{
+  "name": "reception-inbox-poc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Canberra Dizziness Clinic reception inbox auditor — POC against demonstration@smecai.au",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/auto-log.ts",
+    "list:create": "bun run scripts/create-list.ts",
+    "list:teardown": "bun run scripts/teardown-list.ts",
+    "seed": "bun run scripts/seed-emails.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.4.1",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "dotenv": "^16.4.5",
+    "luxon": "^3.5.0",
+    "openai": "^4.65.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/luxon": "^3.4.2",
+    "@types/node": "^25.6.2",
+    "typescript": "^5.6.3"
+  }
+}
