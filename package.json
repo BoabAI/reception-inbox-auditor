@@ -9,6 +9,7 @@
     "list:create": "bun run scripts/create-list.ts",
     "list:teardown": "bun run scripts/teardown-list.ts",
     "seed": "bun run scripts/seed-emails.ts",
+    "seed:2": "bun run scripts/seed-emails-2.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
