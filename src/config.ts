@@ -32,9 +32,6 @@ export const config = {
     get endpoint() {
       return required("AZURE_OPENAI_ENDPOINT");
     },
-    get apiKey() {
-      return required("AZURE_OPENAI_API_KEY");
-    },
     get deployment() {
       return required("AZURE_OPENAI_DEPLOYMENT");
     },
