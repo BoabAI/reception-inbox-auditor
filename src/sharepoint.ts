@@ -38,6 +38,7 @@ export type ListItemFields = {
   Received: string; // ISO 8601 (UTC)
   EmailType: "Referral" | "Other" | "Unclassified";
   EmailStatus: "New" | "In Progress" | "Action Completed";
+  Category?: string;
   EmailLinkUrl?: string;
   EmailLinkDescription?: string;
 };
@@ -87,6 +88,9 @@ export async function insertItem(fields: ListItemFields): Promise<{ id: string }
     "--EmailStatus",
     fields.EmailStatus,
   ];
+  if (fields.Category) {
+    args.push("--Category", fields.Category);
+  }
   if (fields.EmailLinkUrl) {
     const desc = fields.EmailLinkDescription ?? "Open original email";
     args.push("--EmailLink", `${fields.EmailLinkUrl}, ${desc}`);
@@ -121,4 +125,48 @@ export async function upsertByMessageId(
   if (existing) return { result: "skipped", id: existing.id };
   const created = await insertItem(fields);
   return { result: "inserted", id: created.id };
+}
+
+/**
+ * Update specific fields on an existing list item by id. Used by re-classify.
+ */
+export async function updateItemFields(
+  itemId: string,
+  fields: Partial<Pick<ListItemFields, "EmailType" | "Category">>,
+): Promise<void> {
+  const { siteId, listId } = await resolveRefs();
+  const client = await graphClient();
+  const body: Record<string, string> = {};
+  if (fields.EmailType) body.EmailType = fields.EmailType;
+  if (fields.Category) body.Category = fields.Category;
+  await client.api(`/sites/${siteId}/lists/${listId}/items/${itemId}/fields`).patch(body);
+}
+
+export type ListedItem = {
+  id: string;
+  fields: {
+    Title?: string;
+    MessageId?: string;
+    FromAddress?: string;
+    EmailType?: string;
+    EmailStatus?: string;
+    Category?: string;
+  };
+};
+
+/**
+ * Page through every item in the list. Used by reporting + reclassify.
+ */
+export async function listAllItems(): Promise<ListedItem[]> {
+  const { siteId, listId } = await resolveRefs();
+  const client = await graphClient();
+  const items: ListedItem[] = [];
+  let url: string | null = `/sites/${siteId}/lists/${listId}/items?$expand=fields&$top=200`;
+  while (url) {
+    const page = (await client.api(url).get()) as { value: ListedItem[]; "@odata.nextLink"?: string };
+    items.push(...page.value);
+    url = page["@odata.nextLink"] ?? null;
+    if (url) url = url.replace("https://graph.microsoft.com/v1.0", "");
+  }
+  return items;
 }

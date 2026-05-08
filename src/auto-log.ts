@@ -36,7 +36,7 @@ async function saveCursor(cursor: Cursor): Promise<void> {
   await writeFile(CURSOR_PATH, JSON.stringify(cursor, null, 2));
 }
 
-async function processMessage(m: MailMessage): Promise<{ status: "logged" | "skipped"; type: string; id: string }> {
+async function processMessage(m: MailMessage): Promise<{ status: "logged" | "skipped"; type: string; category: string; id: string }> {
   const cls = await classifyEmail({ subject: m.subject, from: m.from, body: m.bodyPreview });
   const res = await upsertByMessageId({
     Title: m.subject.slice(0, 250),
@@ -45,10 +45,11 @@ async function processMessage(m: MailMessage): Promise<{ status: "logged" | "ski
     Received: m.receivedDateTime,
     EmailType: cls.type,
     EmailStatus: "New",
+    Category: cls.category,
     EmailLinkUrl: m.webLink,
     EmailLinkDescription: "Open in Outlook",
   });
-  return { status: res.result === "inserted" ? "logged" : "skipped", type: cls.type, id: res.id };
+  return { status: res.result === "inserted" ? "logged" : "skipped", type: cls.type, category: cls.category, id: res.id };
 }
 
 async function main(): Promise<void> {
@@ -68,7 +69,7 @@ async function main(): Promise<void> {
       const r = await processMessage(m);
       if (r.status === "logged") inserted++;
       else skipped++;
-      console.log(`  ${r.status === "logged" ? "+" : "·"} [${r.type}] ${m.subject.slice(0, 70)} (id=${r.id})`);
+      console.log(`  ${r.status === "logged" ? "+" : "·"} [${r.type}|${r.category}] ${m.subject.slice(0, 65)} (id=${r.id})`);
     } catch (e) {
       console.error(`  ! failed to process ${m.internetMessageId}: ${(e as Error).message}`);
       // Don't advance cursor past a failure.

@@ -52,7 +52,7 @@ for (const c of cases) {
     const ms = Date.now() - start;
     const ok = result.type === c.expected ? "✓" : "✗";
     if (result.type === c.expected) pass++;
-    console.log(`${ok} ${c.label} -> ${result.type} (${ms}ms)`);
+    console.log(`${ok} ${c.label} -> ${result.type} | ${result.category} (${ms}ms)`);
     console.log(`  reason: ${result.reason}`);
   } catch (e) {
     console.log(`✗ ${c.label} -> ERROR ${(e as Error).message}`);

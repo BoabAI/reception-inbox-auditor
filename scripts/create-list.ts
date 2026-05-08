@@ -52,6 +52,29 @@ const fields: FieldDef[] = [
     </Field>`,
   },
   {
+    internalName: "Category",
+    displayName: "Category",
+    xml: `<Field Type="Choice" DisplayName="Category" Format="Dropdown" StaticName="Category" Name="Category">
+      <CHOICES>
+        <CHOICE>Referral - HealthLink/Argus/MedObjects</CHOICE>
+        <CHOICE>Referral - GP letter</CHOICE>
+        <CHOICE>Referral - Plain text / informal</CHOICE>
+        <CHOICE>Referral - WorkCover/DVA</CHOICE>
+        <CHOICE>Referral - Specialist handoff</CHOICE>
+        <CHOICE>Patient enquiry</CHOICE>
+        <CHOICE>Rebooking / cancellation</CHOICE>
+        <CHOICE>Billing / Medicare</CHOICE>
+        <CHOICE>Clinical result</CHOICE>
+        <CHOICE>Marketing / CME</CHOICE>
+        <CHOICE>Phishing / spam</CHOICE>
+        <CHOICE>System (NDR, OOO, receipt)</CHOICE>
+        <CHOICE>Internal admin</CHOICE>
+        <CHOICE>Other</CHOICE>
+      </CHOICES>
+      <Default>Other</Default>
+    </Field>`,
+  },
+  {
     internalName: "Notes",
     displayName: "Notes",
     xml: `<Field Type="Note" DisplayName="Notes" StaticName="Notes" Name="Notes" NumLines="4" RichText="FALSE" />`,
