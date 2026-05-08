@@ -68,6 +68,31 @@ isn't).
 
 ## SharePoint via m365 CLI
 
+### `m365 spo page section add` rotates collapsibleTitle by 1
+
+When you add three collapsible sections in sequence, the `--collapsibleTitle`
+ends up on the *next* section in zone order — not the section being created.
+Pattern observed (m365 v11.7.0):
+
+| Add order | Title given | Final position (zone) |
+|---|---|---|
+| 1 | `Inbox` | zone 3 |
+| 2 | `Stats` | zone 1 |
+| 3 | `Compliance & Privacy` | zone 2 |
+
+Workaround: feed titles in **reverse** of intended display order. Want zones
+[Inbox, Stats, Compliance]? Add titles in the order [Compliance, Inbox, Stats].
+
+There is no `spo page section set` to retrofit titles. Other things that
+*don't* fix the rotation: explicit `--order N`, batching all section adds
+before any content adds.
+
+### Emojis in `--collapsibleTitle` serialise as escape literals
+
+`--collapsibleTitle "📊 Stats"` renders in the SP UI as `\u{1f4ca} Stats`
+verbatim. The CLI runs the title through a JSON encoder that emits ASCII
+escape sequences. Use plain text section titles.
+
 ### `m365 spo field get` flags
 
 There is no `--fieldTitle`. Options are `--id`, `--title` (display), or

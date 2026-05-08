@@ -11,6 +11,7 @@
     "seed": "bun run scripts/seed-emails.ts",
     "seed:2": "bun run scripts/seed-emails-2.ts",
     "reclassify": "bun run scripts/reclassify.ts",
+    "hub": "bun run scripts/build-hub-page.ts",
     "stats": "bun run scripts/stats.ts",
     "compliance": "bun run scripts/compliance-page.ts",
     "typecheck": "tsc --noEmit"
