@@ -68,6 +68,39 @@ isn't).
 
 ## SharePoint via m365 CLI
 
+### SharePoint text webpart accepts HTML only, not markdown
+
+`m365 spo page text add --text "# Heading"` will render the literal `#`, `**`,
+and bullet `-` characters with newlines collapsed to spaces. SP's text webpart
+is HTML-rendering, not markdown-rendering — pass HTML directly instead:
+
+```html
+<h3>Heading</h3>
+<ul><li><strong>bold</strong> ...</li></ul>
+```
+
+Tables, blockquotes, code spans, inline styles all work. `<br />` for line
+breaks within a paragraph.
+
+### List webpart needs `selectedListId` (GUID)
+
+The List standard web part renders nothing if you pass only
+`selectedListUrl + listTitle`. Required is `selectedListId` (the list's GUID).
+Look it up with `m365 spo list get --title X --output json` and read `.Id`.
+
+### QuickChart webpart crashes regardless of data shape
+
+In a SP/M365 tenant in 2026, the QuickChart standard web part throws
+`TypeError: Cannot read properties of undefined (reading 'filter')` on render
+no matter how its `webPartData` is shaped — tried both:
+
+- `chartCategories: string[]` + `chartSeries: [{name, data: number[]}]`
+- `dataItems: [{title, value}]` + `isManual: true`
+
+Both crash. Workaround: render the pie as **inline SVG** in a text webpart.
+Full control over slices, colors, legend; no JS dependency. SP's text webpart
+preserves SVG markup verbatim.
+
 ### `m365 spo page section add` rotates collapsibleTitle by 1
 
 When you add three collapsible sections in sequence, the `--collapsibleTitle`
