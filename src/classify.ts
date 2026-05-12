@@ -8,7 +8,7 @@
  */
 import { AzureOpenAI } from "openai";
 import { DefaultAzureCredential, getBearerTokenProvider } from "@azure/identity";
-import { config } from "./config.ts";
+import { config } from "./config.js";
 
 export const CATEGORIES = [
   "Referral - HealthLink/Argus/MedObjects",

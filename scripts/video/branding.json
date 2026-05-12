@@ -1,0 +1,42 @@
+{
+  "company": "SMEC AI",
+  "product": "Reception Inbox Auditor",
+  "tagline": "Visibility, not automation.",
+  "audience": "generic — any small team running a shared reception or operations inbox",
+  "musicEnabled": false,
+  "colors": {
+    "bgPrimary": "#0B0820",
+    "bgSecondary": "#1A1240",
+    "accent": "linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)",
+    "accentSolid": "#8B5CF6",
+    "accentSecondary": "#C4B5FD",
+    "negative": "#1F1B36",
+    "negativeAccent": "#F87171",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "rgba(255,255,255,0.72)"
+  },
+  "font": {
+    "display": "Space Grotesk",
+    "body": "Inter"
+  },
+  "style": {
+    "tone": "calm, factual, considered — operations-grade, not salesy",
+    "backgroundType": "gradient-mesh with subtle drifting orbs",
+    "motionStyle": "snappy entrances (5-8 frame springs), slow holds, no flashy",
+    "layoutStyle": "asymmetric, editorial — left-anchored headlines with right-side accent shapes"
+  },
+  "voice": {
+    "id": "ys3XeJJA4ArWMhRpcX1D",
+    "name": "Jess - Relaxed, Conversational Australian Accent",
+    "modelId": "eleven_multilingual_v2",
+    "stability": 0.55,
+    "similarityBoost": 0.8,
+    "style": 0.15,
+    "speed": 1.0
+  },
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  }
+}

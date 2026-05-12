@@ -1,13 +1,14 @@
-# Reception Inbox Auditor — POC
+# Reception Inbox Auditor
 
-POC for **Canberra Dizziness Clinic** (Dr Sandeep Rajagopal). Watches a shared
-M365 mailbox, classifies each email as Referral / Other via Azure OpenAI, and
-upserts into a SharePoint list that the receptionist works directly.
+Watches a shared M365 mailbox, classifies each email as Referral / Other via
+Azure OpenAI, and upserts into a SharePoint list that the receptionist works
+directly. Built for small medical clinics that want visibility over their
+shared reception inbox without changing how their receptionist works.
 
-**Demo target:** May 13, 2026
-**Demo mailbox:** `demonstration@smecai.au` (SMEC AI test tenant)
-**Plan:** [docs/plans/reception-inbox-mvp.md](docs/plans/reception-inbox-mvp.md)
-**Handout:** [docs/handouts/2026-05-13-poc-onepager.md](docs/handouts/2026-05-13-poc-onepager.md)
+All data stays inside the customer's tenant. Azure OpenAI is hosted in
+**Australia East** — AU Privacy Act / APP 8 compliant.
+
+**Customer deployment guide:** [docs/customer-deployment.md](docs/customer-deployment.md)
 
 ## Stack
 
@@ -78,10 +79,8 @@ scripts/
   grant-mailbox-access.sh one-shot EXO mailbox delegation
   convert-to-shared.sh    one-shot EXO mailbox type conversion
 docs/
-  plans/                  the original plan
-  agendas/                meeting agendas
-  handouts/               one-pagers for Sandeep
-  transcripts/            discovery call transcripts
+  customer-deployment.md  installation playbook
+  learnings.md            POC notes
 ```
 
 ## Production path

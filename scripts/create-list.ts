@@ -118,7 +118,7 @@ async function main() {
       --title ${listTitle} \
       --baseTemplate GenericList \
       --enableVersioning true \
-      --description "Auto-logged emails received at demonstration@smecai.au — POC for Canberra Dizziness Clinic"`.quiet();
+      --description "Reception inbox auditor — auto-logged emails with referral classification"`.quiet();
   }
 
   for (const f of fields) {

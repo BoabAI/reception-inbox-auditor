@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "namePrefix": { "value": "recept" },
+    "env": { "value": "prod" },
+    "location": { "value": "australiaeast" },
+
+    "m365TenantId": { "value": "REPLACE-WITH-CUSTOMER-TENANT-ID" },
+    "watchedMailbox": { "value": "reception@customer-clinic.example" },
+
+    "sharePointHostname": { "value": "customer-clinic.sharepoint.com" },
+    "sharePointSitePath": { "value": "/sites/Reception" },
+    "sharePointListName": { "value": "Reception Email Tracker" },
+
+    "azureOpenAIEndpoint": { "value": "https://customer-aoai.openai.azure.com/" },
+    "azureOpenAIDeployment": { "value": "gpt-4.1-nano" },
+    "azureOpenAIResourceId": {
+      "value": "/subscriptions/REPLACE-SUB-ID/resourceGroups/REPLACE-RG/providers/Microsoft.CognitiveServices/accounts/REPLACE-AOAI-NAME"
+    },
+
+    "graphClientId": { "value": "REPLACE-WITH-APP-REG-CLIENT-ID" },
+    "graphClientSecret": {
+      "value": "REPLACE-WITH-APP-REG-CLIENT-SECRET"
+    }
+  }
+}

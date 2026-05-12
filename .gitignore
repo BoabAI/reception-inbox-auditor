@@ -11,6 +11,15 @@ dist/
 build/
 out/
 .next/
+functions/dist/
+
+# Azure Functions Core Tools
+local.settings.json
+.azure/
+
+# Terraform / IaC state (if we ever switch from bicep)
+*.tfstate
+*.tfstate.*
 
 # Environment files
 .env
@@ -41,5 +50,21 @@ coverage/
 # Bun
 bun.lockb
 
+# Explainer video artifacts (large, regeneratable)
+scripts/video/remotion/node_modules/
+scripts/video/output/
+scripts/video/remotion/public/narration-segments/
+scripts/video/remotion/public/narration.mp3
+scripts/video/narration-timing.json
+scripts/video/remotion/public/screenshots/
+
 # Claude Code session state
 .claude/scheduled_tasks.lock
+
+# Client engagement record — local only, not for public repo
+docs/plans/reception-inbox-mvp.md
+docs/plans/packaging-for-customer-deployment.md
+docs/plans/stand-up-webpage.md
+docs/handouts/
+docs/agendas/
+docs/transcripts/

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en" class="bg-[#0B0820]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Reception Inbox Auditor — visibility, not automation</title>
+    <meta
+      name="description"
+      content="An AI-assisted shared inbox classifier for small medical clinics. Single-tenant, Australia-resident, customer-owned. Australian Privacy Act / APP 8 compliant."
+    />
+    <meta property="og:title" content="Reception Inbox Auditor" />
+    <meta
+      property="og:description"
+      content="Visibility over a shared medical reception inbox. Single-tenant, AU-resident, customer-owned."
+    />
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: { primary: "#0B0820", secondary: "#1A1240", card: "#15103A" },
+              accent: { DEFAULT: "#8B5CF6", soft: "#C4B5FD" },
+              ink: { primary: "#FFFFFF", muted: "rgba(255,255,255,0.72)", faint: "rgba(255,255,255,0.5)" },
+            },
+            fontFamily: {
+              display: ['"Space Grotesk"', "system-ui", "sans-serif"],
+              body: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        color: rgba(255, 255, 255, 0.88);
+        background:
+          radial-gradient(ellipse 80% 60% at 20% 0%, rgba(139, 92, 246, 0.18), transparent 60%),
+          radial-gradient(ellipse 60% 50% at 100% 30%, rgba(109, 40, 217, 0.15), transparent 65%),
+          #0B0820;
+      }
+      h1, h2, h3 { font-family: "Space Grotesk", system-ui, sans-serif; letter-spacing: -0.02em; }
+      .glow-border {
+        background: linear-gradient(180deg, rgba(139, 92, 246, 0.4), rgba(139, 92, 246, 0)) padding-box,
+                    linear-gradient(180deg, rgba(139, 92, 246, 0.7), rgba(139, 92, 246, 0.1)) border-box;
+        border: 1px solid transparent;
+      }
+      .card {
+        background: rgba(26, 18, 64, 0.55);
+        border: 1px solid rgba(196, 181, 253, 0.12);
+        backdrop-filter: blur(8px);
+      }
+      .pill {
+        background: rgba(139, 92, 246, 0.15);
+        color: #C4B5FD;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+      code, pre {
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      pre {
+        background: rgba(11, 8, 32, 0.7);
+        border: 1px solid rgba(196, 181, 253, 0.15);
+        color: #E9D5FF;
+      }
+      .grad-text {
+        background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      a.btn-primary {
+        background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+        box-shadow: 0 6px 30px -8px rgba(139, 92, 246, 0.6);
+      }
+      a.btn-primary:hover { filter: brightness(1.1); }
+      a.btn-secondary { border: 1px solid rgba(196, 181, 253, 0.3); }
+      a.btn-secondary:hover { background: rgba(139, 92, 246, 0.1); }
+    </style>
+  </head>
+  <body class="font-body antialiased">
+    <!-- Nav -->
+    <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded-md bg-gradient-to-br from-accent to-purple-700 flex items-center justify-center font-display font-bold text-white">R</div>
+        <span class="font-display font-semibold text-ink-primary">Reception Inbox Auditor</span>
+      </div>
+      <nav class="hidden md:flex gap-8 text-sm text-ink-muted">
+        <a href="#what" class="hover:text-ink-primary transition">What it does</a>
+        <a href="#compliance" class="hover:text-ink-primary transition">Compliance</a>
+        <a href="#install" class="hover:text-ink-primary transition">Install</a>
+        <a href="https://github.com/BoabAI/reception-inbox-auditor" class="hover:text-ink-primary transition">GitHub →</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-20">
+      <span class="pill inline-block text-xs font-medium px-3 py-1 rounded-full mb-6">
+        Open source · MIT · Built for small medical clinics
+      </span>
+      <h1 class="text-5xl md:text-7xl font-display font-bold leading-[1.05] tracking-tight mb-6">
+        <span class="grad-text">Visibility</span>,<br />
+        not automation.
+      </h1>
+      <p class="text-lg md:text-xl text-ink-muted max-w-2xl mb-10 leading-relaxed">
+        An AI-assisted classifier that watches a shared medical reception inbox,
+        sorts each email into <em>Referral</em> or <em>Other</em>, and writes the
+        result into a SharePoint list your receptionist already uses. Everything
+        runs inside <strong class="text-ink-primary">your tenant</strong> — in
+        Australia.
+      </p>
+      <div class="flex flex-wrap gap-4 mb-12">
+        <a
+          href="https://github.com/BoabAI/reception-inbox-auditor"
+          class="btn-primary text-white font-medium px-6 py-3 rounded-lg inline-flex items-center gap-2 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.3.8 1 .8 2v3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#install" class="btn-secondary text-ink-primary font-medium px-6 py-3 rounded-lg inline-flex items-center gap-2 transition">
+          Deployment guide →
+        </a>
+      </div>
+
+      <!-- Video -->
+      <div class="glow-border rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/30">
+        <video
+          controls
+          preload="metadata"
+          playsinline
+          poster=""
+          class="w-full aspect-video bg-black"
+        >
+          <source src="public/reception-inbox-explainer.mp4" type="video/mp4" />
+          Sorry, your browser doesn't support embedded video.
+        </video>
+      </div>
+      <p class="text-xs text-ink-faint mt-3 text-center">
+        2-minute explainer · built with Remotion · no audio tracking
+      </p>
+    </section>
+
+    <!-- What it does -->
+    <section id="what" class="max-w-6xl mx-auto px-6 py-16 border-t border-white/5">
+      <h2 class="text-3xl md:text-4xl font-display font-semibold mb-4 text-ink-primary">
+        What it does
+      </h2>
+      <p class="text-ink-muted max-w-2xl mb-12">
+        One scheduled Function. Three steps. No new app for the receptionist to
+        learn — the output is a familiar SharePoint list.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card rounded-xl p-6">
+          <div class="text-accent text-sm font-semibold mb-2">Step 1</div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-ink-primary">Watch the mailbox</h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            Polls a shared M365 mailbox every 5 minutes via Microsoft Graph
+            using a least-privilege app registration —
+            <code class="text-accent-soft">Mail.Read</code> scoped to that one
+            mailbox only.
+          </p>
+        </div>
+        <div class="card rounded-xl p-6">
+          <div class="text-accent text-sm font-semibold mb-2">Step 2</div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-ink-primary">Classify with Azure OpenAI</h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            Sends subject, sender, and a short preview to
+            <code class="text-accent-soft">gpt-4.1-nano</code> in Australia East.
+            Returns one of <em>Referral</em> or <em>Other</em>, plus a
+            sub-category. Full email bodies are never stored.
+          </p>
+        </div>
+        <div class="card rounded-xl p-6">
+          <div class="text-accent text-sm font-semibold mb-2">Step 3</div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-ink-primary">Log to SharePoint</h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            Upserts into a SharePoint list, deduped by Internet Message ID.
+            Receptionist works directly in the list — adds notes, marks
+            status, never touches the AI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compliance -->
+    <section id="compliance" class="max-w-6xl mx-auto px-6 py-16 border-t border-white/5">
+      <span class="pill inline-block text-xs font-medium px-3 py-1 rounded-full mb-4">
+        Australian medical data
+      </span>
+      <h2 class="text-3xl md:text-4xl font-display font-semibold mb-4 text-ink-primary">
+        Designed for Australian Privacy Act compliance
+      </h2>
+      <p class="text-ink-muted max-w-3xl mb-10 leading-relaxed">
+        Patient data is sensitive personal information under the Privacy Act
+        1988. This system is built so that data never leaves the customer's
+        tenant or Australian sovereign territory.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-10">
+        <div class="card rounded-xl p-6">
+          <h3 class="font-display font-semibold mb-3 text-ink-primary flex items-center gap-2">
+            <span class="text-accent">●</span> Single-tenant deployment
+          </h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            Every install lives inside the customer's own Azure subscription
+            and Microsoft 365 tenant. BoabAI never holds customer credentials,
+            data, or secrets. We deliver code; the customer owns the runtime.
+          </p>
+        </div>
+        <div class="card rounded-xl p-6">
+          <h3 class="font-display font-semibold mb-3 text-ink-primary flex items-center gap-2">
+            <span class="text-accent">●</span> Data stays in Australia (APP 8)
+          </h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            Azure OpenAI, Function App, Storage, Key Vault, and SharePoint all
+            run in <strong>Australia East</strong>. No cross-border data flow.
+            Satisfies APP 8 obligations for sensitive health information.
+          </p>
+        </div>
+        <div class="card rounded-xl p-6">
+          <h3 class="font-display font-semibold mb-3 text-ink-primary flex items-center gap-2">
+            <span class="text-accent">●</span> Least-privilege by default
+          </h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            <code class="text-accent-soft">Mail.Read</code> is scoped to one
+            mailbox via an Application Access Policy.
+            <code class="text-accent-soft">Sites.Selected</code> is scoped to
+            one SharePoint site. Secrets live in Key Vault. Runtime auth uses
+            managed identity.
+          </p>
+        </div>
+        <div class="card rounded-xl p-6">
+          <h3 class="font-display font-semibold mb-3 text-ink-primary flex items-center gap-2">
+            <span class="text-accent">●</span> Minimal data exposure
+          </h3>
+          <p class="text-ink-muted text-sm leading-relaxed">
+            The classifier only sees subject, sender, and a short preview. Full
+            email bodies are not sent to the model and are not persisted by
+            this system — they remain in Exchange Online where they always
+            were.
+          </p>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-6 md:p-8">
+        <h3 class="font-display font-semibold mb-4 text-ink-primary">Australian Privacy Principles alignment</h3>
+        <div class="grid md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">APP 1</span>
+            <span class="text-ink-muted">Open and transparent management — a Compliance &amp; Privacy SharePoint page is provisioned at install.</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">APP 5</span>
+            <span class="text-ink-muted">Notification of collection — only metadata + subject + preview are read; never full bodies.</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">APP 6</span>
+            <span class="text-ink-muted">Use and disclosure — classification only, no secondary purpose.</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">APP 8</span>
+            <span class="text-ink-muted">Cross-border disclosure — all resources in Australia East. No data leaves AU.</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">APP 11</span>
+            <span class="text-ink-muted">Security — Key Vault for secrets, managed identity, narrow RBAC.</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-accent font-semibold w-12 shrink-0">Audit</span>
+            <span class="text-ink-muted">Every classification is logged with the model version and prompt hash for retrospection.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to implement -->
+    <section id="install" class="max-w-6xl mx-auto px-6 py-16 border-t border-white/5">
+      <h2 class="text-3xl md:text-4xl font-display font-semibold mb-4 text-ink-primary">
+        How to implement
+      </h2>
+      <p class="text-ink-muted max-w-2xl mb-10 leading-relaxed">
+        Wall-clock install is around <strong class="text-ink-primary">45 minutes</strong>
+        once prerequisites are ready. Ongoing cost is roughly
+        <strong class="text-ink-primary">$1–$5 AUD per month</strong> on the
+        customer's own Azure subscription.
+      </p>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-display font-semibold text-xl mb-4 text-ink-primary">Prerequisites</h3>
+          <ul class="space-y-3 text-ink-muted text-sm">
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span>Azure subscription with <strong class="text-ink-primary">Owner</strong> permission for the deployer</span></li>
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span>Azure OpenAI resource provisioned in <strong class="text-ink-primary">Australia East</strong>, with <code class="text-accent-soft">gpt-4.1-nano</code> deployed (quota approval can take 24–72 hours)</span></li>
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span>An existing SharePoint site (e.g. <code class="text-accent-soft">/sites/Reception</code>) — the list and hub page get provisioned into it</span></li>
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span>The watched mailbox converted to <strong class="text-ink-primary">Shared Mailbox</strong> type (one Exchange Online command)</span></li>
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span>Global Admin available for ~10 minutes to grant consent and run one PowerShell command</span></li>
+            <li class="flex gap-3"><span class="text-accent shrink-0">✓</span><span><code class="text-accent-soft">m365</code>, <code class="text-accent-soft">az</code>, <code class="text-accent-soft">func</code> Core Tools v4, and <code class="text-accent-soft">bun</code> installed on the engineer's workstation</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-display font-semibold text-xl mb-4 text-ink-primary">Day-of install</h3>
+          <pre class="rounded-lg p-4 text-sm overflow-x-auto leading-relaxed"><span class="text-ink-faint"># Clone the repo</span>
+git clone https://github.com/BoabAI/reception-inbox-auditor.git
+cd reception-inbox-auditor
+
+<span class="text-ink-faint"># Sign in to the customer's tenant + subscription</span>
+m365 login
+az login
+
+<span class="text-ink-faint"># Idempotent setup CLI — walks 11 steps,</span>
+<span class="text-ink-faint"># prompts for confirmation between each.</span>
+bun install
+bun run package:init</pre>
+          <p class="text-ink-faint text-xs mt-4 leading-relaxed">
+            The setup CLI creates the app registration, applies the
+            Application Access Policy, grants <code class="text-accent-soft">Sites.Selected</code>,
+            deploys the Bicep template (Function App + Storage + Key Vault +
+            RBAC), provisions the SharePoint list + hub page, and publishes
+            the Function code.
+          </p>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-6 mt-10">
+        <div class="flex flex-wrap items-start gap-6 justify-between">
+          <div class="flex-1 min-w-[200px]">
+            <div class="text-ink-faint text-xs uppercase tracking-wider mb-1">Wall-clock install</div>
+            <div class="font-display text-2xl text-ink-primary">~45 min</div>
+          </div>
+          <div class="flex-1 min-w-[200px]">
+            <div class="text-ink-faint text-xs uppercase tracking-wider mb-1">Monthly running cost (AUD)</div>
+            <div class="font-display text-2xl text-ink-primary">$1–$5</div>
+          </div>
+          <div class="flex-1 min-w-[200px]">
+            <div class="text-ink-faint text-xs uppercase tracking-wider mb-1">Tenant boundary</div>
+            <div class="font-display text-2xl text-ink-primary">100% customer</div>
+          </div>
+          <div class="flex-1 min-w-[200px]">
+            <div class="text-ink-faint text-xs uppercase tracking-wider mb-1">Region</div>
+            <div class="font-display text-2xl text-ink-primary">Australia East</div>
+          </div>
+        </div>
+        <p class="text-ink-muted text-sm mt-6">
+          For the full step-by-step including admin consent URLs, Application
+          Access Policy syntax, validation, rollback, and troubleshooting, see
+          <a class="text-accent-soft underline decoration-dotted hover:text-ink-primary" href="https://github.com/BoabAI/reception-inbox-auditor/blob/main/docs/customer-deployment.md">docs/customer-deployment.md</a>
+          on GitHub.
+        </p>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="max-w-6xl mx-auto px-6 py-16 border-t border-white/5">
+      <h2 class="text-3xl md:text-4xl font-display font-semibold mb-4 text-ink-primary">
+        Architecture, in one diagram
+      </h2>
+      <p class="text-ink-muted max-w-2xl mb-10">
+        Everything in the dashed box is inside the customer's tenant.
+      </p>
+
+      <div class="card rounded-xl p-8 overflow-x-auto">
+        <pre class="text-accent-soft text-sm md:text-base leading-relaxed font-mono whitespace-pre">
+   ┌─ Customer Microsoft 365 + Azure tenant (Australia East) ────────────┐
+   │                                                                     │
+   │   ┌────────────┐    ┌──────────────┐    ┌──────────────────────┐    │
+   │   │   Shared   │───▶│   Function   │───▶│  Azure OpenAI        │    │
+   │   │  mailbox   │    │  App (5-min  │    │  gpt-4.1-nano        │    │
+   │   │ (M365)     │    │   timer)     │◀───│  (AU East)           │    │
+   │   └────────────┘    └──────┬───────┘    └──────────────────────┘    │
+   │                            │                                        │
+   │                            ▼                                        │
+   │                   ┌──────────────────┐                              │
+   │                   │  SharePoint list │   ◀── receptionist uses this │
+   │                   │  + hub page      │                              │
+   │                   └──────────────────┘                              │
+   │                                                                     │
+   └─────────────────────────────────────────────────────────────────────┘</pre>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-white/5 text-sm text-ink-muted">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          Built by <a href="https://boab.ai" class="text-ink-primary hover:text-accent-soft transition">BoabAI</a>
+          · MIT licensed
+          · <a href="https://github.com/BoabAI/reception-inbox-auditor" class="text-ink-primary hover:text-accent-soft transition">github.com/BoabAI/reception-inbox-auditor</a>
+        </div>
+        <div class="text-ink-faint text-xs">
+          Visibility, not automation.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

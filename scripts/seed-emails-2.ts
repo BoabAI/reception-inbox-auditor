@@ -113,7 +113,7 @@ Attachments: 1 (Referral_Letter_PWright.pdf)`,
     category: "Argus",
     subject: "Argus delivery: Patient referral — chronic dizziness",
     body: `Argus message
-From: Dr Sandeep Krishnan
+From: Dr Rajiv Krishnan
 Practice: Phillip Family Practice
 Provider Number: 5512889W
 
@@ -241,7 +241,7 @@ Dr A. Patel`,
     expected: "Other",
     category: "Patient query — referral request",
     subject: "Can I get a referral letter to physio?",
-    body: `Hi, after my last appointment Dr Sandeep mentioned I could go to physio. Could you please send me a referral letter? Thanks. — Mary T`,
+    body: `Hi, after my last appointment Dr Patel mentioned I could go to physio. Could you please send me a referral letter? Thanks. — Mary T`,
   },
   {
     expected: "Other",
@@ -354,7 +354,7 @@ Conclusion: Normal study for age.`,
     expected: "Other",
     category: "Hospital discharge summary",
     subject: "Discharge summary — Davies, Walter",
-    body: `Canberra Hospital — Geriatrics ward
+    body: `Royal Metro Hospital — Geriatrics ward
 Discharge summary for Walter Davies, admitted 2026-04-22, discharged 2026-04-29.
 Diagnoses: Mechanical fall, no fracture. Multifactorial gait disturbance.
 Plan: Allied health follow-up. Vestibular review (referred separately).`,
@@ -400,13 +400,13 @@ When: Thu 22 May 2026 14:00 - 15:00 (UTC+10)`,
     expected: "Other",
     category: "Internal admin",
     subject: "Roster change next week",
-    body: `Team — Dr Sandeep on leave Wed-Fri next week. Please redirect any urgent referrals to Dr Lin. Receptionists please reschedule his bookings. Thanks, Practice Manager.`,
+    body: `Team — Dr Patel on leave Wed-Fri next week. Please redirect any urgent referrals to Dr Lin. Receptionists please reschedule his bookings. Thanks, Practice Manager.`,
   },
   {
     expected: "Other",
     category: "Patient feedback",
     subject: "Just wanted to say thanks",
-    body: `Hi team — just a quick note to say thanks for last Tuesday. The exercises are working and I've barely had any spins this week. Tell Dr Sandeep I really appreciated his patience. — Margaret O.`,
+    body: `Hi team — just a quick note to say thanks for last Tuesday. The exercises are working and I've barely had any spins this week. Tell Dr Patel I really appreciated his patience. — Margaret O.`,
   },
   {
     expected: "Other",
@@ -446,7 +446,7 @@ When: Thu 22 May 2026 14:00 - 15:00 (UTC+10)`,
     expected: "Other",
     category: "Spam — phishing",
     subject: "Action required: Microsoft 365 password expiring",
-    body: `Your Microsoft 365 password for sandeep@canberradizziness.com.au will expire in 24 hours. Click here to keep your current password.
+    body: `Your Microsoft 365 password for reception@clinic.example will expire in 24 hours. Click here to keep your current password.
 
 (do NOT click — phishing pattern)`,
   },
@@ -466,7 +466,7 @@ When: Thu 22 May 2026 14:00 - 15:00 (UTC+10)`,
     expected: "Other",
     category: "Spam — generic",
     subject: "Congratulations! You've been pre-approved",
-    body: `Dr Rajagopal, you've been pre-approved for a $50,000 business loan with our medical-practice partner finance. No paperwork. Click to claim.`,
+    body: `Dr Practitioner, you've been pre-approved for a $50,000 business loan with our medical-practice partner finance. No paperwork. Click to claim.`,
   },
 ];
 

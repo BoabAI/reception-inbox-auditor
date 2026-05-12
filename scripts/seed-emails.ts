@@ -221,7 +221,7 @@ Register at the link below.`,
     expected: "Other",
     category: "Spam",
     subject: "You've been selected for a prize draw",
-    body: `Congratulations Sandeep! You've won a prize. Click here to claim within 24 hours.`,
+    body: `Congratulations! You've been selected as one of our lucky winners. Click here to claim your prize within 24 hours.`,
   },
   {
     expected: "Other",

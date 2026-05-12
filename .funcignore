@@ -1,0 +1,17 @@
+.git*
+.vscode
+local.settings.json
+test
+tsconfig.json
+tsconfig.fn.json
+src/**/*.ts
+functions/**/*.ts
+!functions/dist/**/*.js
+scripts/
+docs/
+infra/
+.env*
+.state/
+bun.lockb
+README.md
+*.tsbuildinfo

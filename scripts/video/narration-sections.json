@@ -1,0 +1,29 @@
+[
+  {
+    "sceneId": "pile",
+    "text": "A shared reception inbox. Dozens of emails a day — referrals, rebookings, billing, marketing — all in one pile. The question isn't whether things get done. It's what gets missed."
+  },
+  {
+    "sceneId": "auto-log",
+    "text": "Every email is logged automatically. An Australian-region A I tags it as a referral or other. Nothing leaves Microsoft three sixty-five. Nothing leaves the country."
+  },
+  {
+    "sceneId": "inbox",
+    "screenshotId": "02-hub-inbox",
+    "text": "Your reception team works one screen — this list. New items at the top, completed work tucked away. They confirm the A I's call, set status, and add a note. No new inbox to learn."
+  },
+  {
+    "sceneId": "stats",
+    "screenshotId": "03-hub-stats",
+    "text": "You open the same page and see what's actually coming in. Referrals versus everything else. By category. At a glance."
+  },
+  {
+    "sceneId": "compliance",
+    "screenshotId": "04-hub-compliance",
+    "text": "All inside your tenant. Australian Privacy Principles. No new vendor, no extra contract."
+  },
+  {
+    "sceneId": "close",
+    "text": "One page. One source of truth. Visibility, without changing the way your reception works."
+  }
+]
